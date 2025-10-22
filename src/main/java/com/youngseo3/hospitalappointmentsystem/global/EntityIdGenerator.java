@@ -4,7 +4,6 @@ import lombok.Getter;
 
 
 public class EntityIdGenerator {
-
     @Getter
     private static final EntityIdGenerator instance = new EntityIdGenerator();
 

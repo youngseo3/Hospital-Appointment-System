@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class ReservationService {
-
     private final ReservationRepository reservationRepository;
+
     public ReservationCreateResponse saveReservation(ReservationCreateRequest request) {
         try {
             Reservation reservation = request.toEntity();

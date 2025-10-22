@@ -24,8 +24,8 @@ public class Reservations {
     }
 
     private void isTimeOverlapping(Reservation other) {
-        for(Reservation reservation: items) {
-            if(reservation.isEqualsReservationTime(other)) {
+        for (Reservation reservation: items) {
+            if (reservation.isEqualsReservationTime(other)) {
                 throw new IllegalArgumentException("해당 시간에는 이미 예약이 있습니다. 다른 시간을 선택해주세요.");
             }
         }
