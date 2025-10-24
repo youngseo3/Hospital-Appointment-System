@@ -23,6 +23,20 @@ public class Reservations {
         entityIdGenerator.addReservationId();
     }
 
+    public Reservation getReservation(Long id) {
+        for (Reservation reservation: items) {
+            if (reservation.isEqualsId(id)) {
+                return reservation;
+            }
+        }
+
+        throw new IllegalArgumentException("존재하지 않는 예약입니다.");
+    }
+
+    public void remove(Reservation reservation) {
+        items.remove(reservation);
+    }
+
     private void isTimeOverlapping(Reservation other) {
         for (Reservation reservation: items) {
             if (reservation.isEqualsReservationTime(other)) {
