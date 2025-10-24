@@ -11,4 +11,12 @@ public class ReservationRepository {
     public void save(Reservation reservation) {
         reservations.addReservation(reservation);
     }
+
+    public Reservation findById(Long id) {
+        return reservations.getReservation(id);
+    }
+
+    public void delete(Reservation reservation) {
+        reservations.remove(reservation);
+    }
 }

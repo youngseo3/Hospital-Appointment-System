@@ -8,12 +8,12 @@ public class ReservationCreateResponse {
     private Long reservationId;
     private final String message;
 
-    public ReservationCreateResponse(Long reservationId, String message) {
+    private ReservationCreateResponse(Long reservationId, String message) {
         this.reservationId = reservationId;
         this.message = message;
     }
 
-    public ReservationCreateResponse(String message) {
+    private ReservationCreateResponse(String message) {
         this.message = message;
     }
 

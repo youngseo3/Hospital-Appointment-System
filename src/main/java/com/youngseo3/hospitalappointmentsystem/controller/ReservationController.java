@@ -2,13 +2,12 @@ package com.youngseo3.hospitalappointmentsystem.controller;
 
 import com.youngseo3.hospitalappointmentsystem.dto.ReservationCreateRequest;
 import com.youngseo3.hospitalappointmentsystem.dto.ReservationCreateResponse;
+import com.youngseo3.hospitalappointmentsystem.dto.ReservationDeleteRequest;
+import com.youngseo3.hospitalappointmentsystem.dto.ReservationDeleteResponse;
 import com.youngseo3.hospitalappointmentsystem.service.ReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/reservations")
@@ -18,7 +17,15 @@ public class ReservationController {
 
     @PostMapping
     public ResponseEntity<ReservationCreateResponse> saveReservation(@RequestBody ReservationCreateRequest request) {
-        ReservationCreateResponse reservation = reservationService.saveReservation(request);
-        return ResponseEntity.ok(reservation);
+        ReservationCreateResponse response = reservationService.saveReservation(request);
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/{reservationId}")
+    public ResponseEntity<ReservationDeleteResponse> deleteReservation(
+            @PathVariable Long reservationId,
+            @RequestBody ReservationDeleteRequest request) {
+        ReservationDeleteResponse response = reservationService.deleteReservation(reservationId, request);
+        return ResponseEntity.ok(response);
     }
 }

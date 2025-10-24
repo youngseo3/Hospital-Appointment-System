@@ -40,4 +40,8 @@ public class Reservation {
     public boolean isEqualsReservationTime(Reservation other) {
         return reservationTime.equals(other.getReservationTime());
     }
+
+    public boolean isEqualsId(Long id) {
+        return this.id.equals(id);
+    }
 }
