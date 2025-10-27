@@ -1,22 +1,42 @@
 package com.youngseo3.hospitalappointmentsystem.repository;
 
 import com.youngseo3.hospitalappointmentsystem.entity.Reservation;
-import com.youngseo3.hospitalappointmentsystem.entity.Reservations;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
+@RequiredArgsConstructor
 public class ReservationRepository {
-    private final Reservations reservations = Reservations.getInstance();
+    private final List<Reservation> reservations;
+    private Long id = 1L;
 
     public void save(Reservation reservation) {
-        reservations.addReservation(reservation);
+        isTimeOverlapping(reservation);
+        reservation.setId(id++);
+        reservations.add(reservation);
     }
 
     public Reservation findById(Long id) {
-        return reservations.getReservation(id);
+        for (Reservation reservation: reservations) {
+            if (reservation.isEqualsId(id)) {
+                return reservation;
+            }
+        }
+
+        throw new IllegalArgumentException("존재하지 않는 예약입니다.");
     }
 
     public void delete(Reservation reservation) {
         reservations.remove(reservation);
+    }
+
+    private void isTimeOverlapping(Reservation other) {
+        for (Reservation reservation: reservations) {
+            if (reservation.isEqualsReservationTime(other)) {
+                throw new IllegalArgumentException("해당 시간에는 이미 예약이 있습니다. 다른 시간을 선택해주세요.");
+            }
+        }
     }
 }
