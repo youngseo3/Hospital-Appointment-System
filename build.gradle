@@ -19,8 +19,13 @@ repositories {
 }
 
 dependencies {
+    // Spring Web
     implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // Development Tools
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    // Test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
