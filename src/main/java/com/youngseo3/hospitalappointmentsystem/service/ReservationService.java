@@ -15,25 +15,18 @@ public class ReservationService {
     private final ReservationRepository reservationRepository;
 
     public ReservationCreateResponse saveReservation(ReservationCreateRequest request) {
-        try {
-            Reservation reservation = request.toEntity();
-            reservationRepository.save(reservation);
+        Reservation reservation = request.toEntity();
+        reservationRepository.save(reservation);
 
-            return ReservationCreateResponse.success(reservation);
-        } catch (Exception e) {
-            return ReservationCreateResponse.failure(e.getMessage());
-        }
+        return ReservationCreateResponse.success(reservation);
     }
 
     public ReservationDeleteResponse deleteReservation(Long reservationId, ReservationDeleteRequest request) {
-        try {
-            Reservation reservation = reservationRepository.findById(reservationId);
-            reservationRepository.delete(reservation);
+        Reservation reservation = reservationRepository.findById(reservationId);
+        reservationRepository.delete(reservation);
 
-            System.out.println(request.getCancelReason());
-            return ReservationDeleteResponse.success();
-        } catch (Exception e) {
-            return ReservationDeleteResponse.failure(e.getMessage());
-        }
+        System.out.println(request.getCancelReason());
+
+        return ReservationDeleteResponse.success();
     }
 }

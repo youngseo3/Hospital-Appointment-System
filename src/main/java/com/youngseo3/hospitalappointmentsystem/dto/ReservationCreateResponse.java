@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 public class ReservationCreateResponse {
-    private Long reservationId;
+    private final Long reservationId;
     private final String message;
 
     private ReservationCreateResponse(Long reservationId, String message) {
@@ -13,15 +13,7 @@ public class ReservationCreateResponse {
         this.message = message;
     }
 
-    private ReservationCreateResponse(String message) {
-        this.message = message;
-    }
-
     public static ReservationCreateResponse success(Reservation reservation) {
         return new ReservationCreateResponse(reservation.getId(), "예약이 완료되었습니다.");
-    }
-
-    public static ReservationCreateResponse failure(String errorMessage) {
-        return new ReservationCreateResponse(errorMessage);
     }
 }
