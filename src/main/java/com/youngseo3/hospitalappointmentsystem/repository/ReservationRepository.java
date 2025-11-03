@@ -20,7 +20,7 @@ public class ReservationRepository {
 
     public Reservation findById(Long id) {
         for (Reservation reservation: reservations) {
-            if (reservation.isEqualsId(id)) {
+            if (reservation.getId().equals(id)) {
                 return reservation;
             }
         }

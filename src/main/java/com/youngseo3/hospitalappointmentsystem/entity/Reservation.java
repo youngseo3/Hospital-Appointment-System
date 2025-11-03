@@ -2,7 +2,6 @@ package com.youngseo3.hospitalappointmentsystem.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -27,11 +26,6 @@ public class Reservation {
     public boolean isEqualsReservationTime(Reservation other) {
         return reservationTime.equals(other.getReservationTime());
     }
-
-    public boolean isEqualsId(Long id) {
-        return this.id.equals(id);
-    }
-
 
     private void validateReservationTime(LocalDateTime reservationTime) {
         LocalTime time = reservationTime.toLocalTime();
