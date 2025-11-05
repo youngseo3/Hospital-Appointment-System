@@ -6,8 +6,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
 @RequiredArgsConstructor
+@Repository
 public class ReservationRepository {
     private final List<Reservation> reservations;
     private Long id = 1L;
