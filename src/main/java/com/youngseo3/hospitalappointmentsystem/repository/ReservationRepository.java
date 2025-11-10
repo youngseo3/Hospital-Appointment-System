@@ -6,13 +6,13 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
 @RequiredArgsConstructor
+@Repository
 public class ReservationRepository {
     private final List<Reservation> reservations;
     private Long id = 1L;
 
-    public void save(Reservation reservation) {
+    public synchronized void save(Reservation reservation) {
         isTimeOverlapping(reservation);
         reservation.setId(id++);
         reservations.add(reservation);
@@ -20,7 +20,7 @@ public class ReservationRepository {
 
     public Reservation findById(Long id) {
         for (Reservation reservation: reservations) {
-            if (reservation.isEqualsId(id)) {
+            if (reservation.getId().equals(id)) {
                 return reservation;
             }
         }
@@ -38,5 +38,9 @@ public class ReservationRepository {
                 throw new IllegalArgumentException("해당 시간에는 이미 예약이 있습니다. 다른 시간을 선택해주세요.");
             }
         }
+    }
+
+    public List<Reservation> findAll() {
+        return reservations;
     }
 }
