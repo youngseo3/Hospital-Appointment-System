@@ -7,13 +7,15 @@ import lombok.Getter;
 public class ReservationCreateResponse {
     private final Long reservationId;
     private final String message;
+    private final int calculatedFee;
 
-    private ReservationCreateResponse(Long reservationId, String message) {
+    private ReservationCreateResponse(Long reservationId, String message, int calculatedFee) {
         this.reservationId = reservationId;
         this.message = message;
+        this.calculatedFee = calculatedFee;
     }
 
-    public static ReservationCreateResponse success(Reservation reservation) {
-        return new ReservationCreateResponse(reservation.getId(), "예약이 완료되었습니다.");
+    public static ReservationCreateResponse success(Reservation reservation, int calculatedFee) {
+        return new ReservationCreateResponse(reservation.getId(), "예약이 완료되었습니다.", calculatedFee);
     }
 }

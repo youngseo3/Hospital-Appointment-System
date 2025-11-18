@@ -11,29 +11,37 @@ public class Reservation {
     private Long id;
     private Long patientId;
     private Long doctorId;
-    private LocalDateTime reservationTime;
+    private LocalDateTime reservationStartTime;
+    private LocalDateTime reservationEndTime;
     private String reason;
 
-    public Reservation(Long patientId, Long doctorId, LocalDateTime reservationTime, String reason) {
-        validateReservationTime(reservationTime);
+    public Reservation(Long patientId, Long doctorId, LocalDateTime reservationStartTime, LocalDateTime reservationEndTime, String reason) {
+        validateReservationTime(reservationStartTime, reservationEndTime);
 
         this.patientId = patientId;
         this.doctorId = doctorId;
-        this.reservationTime = reservationTime;
+        this.reservationStartTime = reservationStartTime;
+        this.reservationEndTime = reservationEndTime;
         this.reason = reason;
     }
 
     public boolean isEqualsReservationTime(Reservation other) {
-        return reservationTime.equals(other.getReservationTime());
+        return reservationStartTime.equals(other.getReservationStartTime()) &&
+                reservationEndTime.equals(other.getReservationEndTime());
     }
 
-    private void validateReservationTime(LocalDateTime reservationTime) {
-        LocalTime time = reservationTime.toLocalTime();
+    private void validateReservationTime(LocalDateTime reservationStartTime, LocalDateTime reservationEndTime) {
+        LocalTime treamentStartTime = LocalTime.of(9, 0);
+        LocalTime treamentEndTime = LocalTime.of(17, 0);
 
-        LocalTime startTime = LocalTime.of(9, 0);
-        LocalTime endTime = LocalTime.of(17, 0);
+        LocalTime startTime = reservationStartTime.toLocalTime();
+        LocalTime endTime = reservationEndTime.toLocalTime();
 
-        if(!(!time.isBefore(startTime) && !time.isAfter(endTime)) || time.getMinute() != 0) {
+        if(!(!startTime.isBefore(treamentStartTime) && !startTime.isAfter(treamentEndTime)) || startTime.getMinute() != 0) {
+            throw new IllegalArgumentException("의사의 진료 가능 시간(09:00~17:00) 내에서만 예약할 수 있습니다");
+        }
+
+        if(!(!endTime.isBefore(treamentStartTime) && !endTime.isAfter(treamentEndTime)) || endTime.getMinute() != 0) {
             throw new IllegalArgumentException("의사의 진료 가능 시간(09:00~17:00) 내에서만 예약할 수 있습니다");
         }
     }
