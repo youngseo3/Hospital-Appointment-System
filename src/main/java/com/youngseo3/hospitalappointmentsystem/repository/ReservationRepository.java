@@ -32,15 +32,15 @@ public class ReservationRepository {
         reservations.remove(reservation);
     }
 
+    public List<Reservation> findAll() {
+        return reservations;
+    }
+
     private void isTimeOverlapping(Reservation other) {
         for (Reservation reservation: reservations) {
             if (reservation.isEqualsReservationTime(other)) {
                 throw new IllegalArgumentException("해당 시간에는 이미 예약이 있습니다. 다른 시간을 선택해주세요.");
             }
         }
-    }
-
-    public List<Reservation> findAll() {
-        return reservations;
     }
 }
