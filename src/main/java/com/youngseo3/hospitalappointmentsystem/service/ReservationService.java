@@ -16,10 +16,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class ReservationService {
     private final ReservationRepository reservationRepository;
+    private final CalculatorFactory calculatorFactory;
 
     public ReservationCreateResponse saveReservation(ReservationCreateRequest request) {
         String reason = request.getReason();
-        Calculator calculator = Reason.fromContent(reason).getCalculator();
+        Calculator calculator = calculatorFactory.getCalculator(reason);
 
         int fee = calculator.calculate();
 
