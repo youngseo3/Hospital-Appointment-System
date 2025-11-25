@@ -19,16 +19,11 @@ public class ReservationService {
 
     public ReservationCreateResponse saveReservation(ReservationCreateRequest request) {
         String reason = request.getReason();
-        Calculator calculator = switch (reason) {
-            case "일반 검진" -> new HealthCheckupCalculator();
-            case "감기 증상" -> new ColdSymptomsCalculator();
-            case "피로 회복 주사" -> new FatigueRecoveryInjectionCalculator();
-            default -> null;
-        };
+        Calculator calculator = Reason.fromContent(reason).getCalculator();
 
-        int fee = calculator != null ? calculator.calculate() : 0;
+        int fee = calculator.calculate();
+
         Reservation reservation = request.toEntity();
-
         reservationRepository.save(reservation);
 
         return ReservationCreateResponse.success(reservation, fee);
