@@ -11,10 +11,11 @@ import java.time.LocalDateTime;
 public class ReservationCreateRequest {
     private Long patientId;
     private Long doctorId;
-    private LocalDateTime reservationTime;
+    private LocalDateTime reservationStartTime;
+    private LocalDateTime reservationEndTime;
     private String reason;
 
     public Reservation toEntity() {
-        return new Reservation(patientId, doctorId, reservationTime, reason);
+        return new Reservation(patientId, doctorId, reservationStartTime, reservationEndTime, reason);
     }
 }

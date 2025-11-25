@@ -1,5 +1,6 @@
 package com.youngseo3.hospitalappointmentsystem.service;
 
+import com.youngseo3.hospitalappointmentsystem.calculator.*;
 import com.youngseo3.hospitalappointmentsystem.dto.ReservationCreateRequest;
 import com.youngseo3.hospitalappointmentsystem.dto.ReservationCreateResponse;
 import com.youngseo3.hospitalappointmentsystem.dto.ReservationDeleteRequest;
@@ -15,12 +16,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class ReservationService {
     private final ReservationRepository reservationRepository;
+    private final CalculatorFactory calculatorFactory;
 
     public ReservationCreateResponse saveReservation(ReservationCreateRequest request) {
+        String reason = request.getReason();
+        Calculator calculator = calculatorFactory.getCalculator(reason);
+
+        int fee = calculator.calculate();
+
         Reservation reservation = request.toEntity();
         reservationRepository.save(reservation);
 
-        return ReservationCreateResponse.success(reservation);
+        return ReservationCreateResponse.success(reservation, fee);
     }
 
     public ReservationDeleteResponse deleteReservation(Long reservationId, ReservationDeleteRequest request) {
